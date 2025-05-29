@@ -1,8 +1,8 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
  
 # Install dependencies
-RUN apt update && \
-    apt install wget curl git openssh-client tmate python3 -y
+RUN apt update -y && apt upgrade -y \
+    apt install tmate -y
  
 # Create a dummy index page to keep the service alive
 RUN mkdir -p /app && echo "Tmate Session Running..." > /app/index.html
@@ -13,5 +13,4 @@ EXPOSE 6080
  
 # Start a dummy Python web server to keep Railway service active
 # and start tmate session
-CMD python3 -m http.server 6080 & \
-    tmate -F
+CMD python3 -m http.server 6080 && tmate -F
